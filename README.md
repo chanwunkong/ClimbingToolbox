@@ -7,6 +7,8 @@ A web-based auxiliary toolbox for climbers, developed with AI assistance and dep
 ## 1. Initial Feature: Route Editor (HoldFocus Canvas)
 The primary module designed to streamline route creation and sharing for both climbers and gym setters.
 
+![HoldFocus Demo](./HoldFocus_demo.png)
+
 * **Smart Mask Selection**: Combines **Lasso Paths** and **Color Difference Algorithms** to precisely highlight climbing holds on image overlays.
 
 ## 2. Future Development: Cloud
