@@ -4,245 +4,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Climbing Toolbox - 攀岩者數位工具箱</title>
+    <title>Climbing Toolbox</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
-        body {
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
-        }
-
-        .feature-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .status-badge {
-            @apply px-2 py-0.5 rounded text-[10px] font-bold tracking-wider;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="config.js"></script>
+    <script src="js/modules/i18n.js"></script>
 </head>
 
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300">
 
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <nav class="nav-blur">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">C
+                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold">C
                 </div>
-                <h1 class="text-xl font-bold tracking-tight">Climbing Toolbox</h1>
+                <span class="font-bold text-lg tracking-tight">Climbing Toolbox</span>
             </div>
-            <button id="lang-toggle"
-                class="text-sm font-semibold px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                English
-            </button>
+            <div class="flex items-center gap-4">
+                <button onclick="i18n.toggle()" data-i18n="langText"
+                    class="text-xs font-bold px-3 py-1.5 border border-slate-200 rounded-full hover:bg-slate-100 transition-colors">
+                    Language
+                </button>
+                <div id="auth-section">
+                    <button id="login-btn" onclick="handleGoogleLogin()" data-i18n="login"
+                        class="text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-full hover:bg-slate-800 transition-colors">
+                        Login
+                    </button>
+                    <div id="user-info" class="hidden flex items-center gap-3">
+                        <img id="user-avatar" class="w-8 h-8 rounded-full border border-slate-200" src="" alt="avatar">
+                        <button onclick="handleLogout()" data-i18n="logout"
+                            class="text-sm text-slate-500 hover:text-slate-900">Logout</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="flex-1 max-w-6xl mx-auto px-4 py-12 w-full">
-        <!-- 介紹區域 -->
-        <section class="text-center mb-16">
-            <h2 id="hero-title"
-                class="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
-                專為攀岩者打造的工具箱
-            </h2>
-            <p id="hero-desc" class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-                簡化你的路線紀錄、訓練管理與數據分析流程。無需安裝，透過瀏覽器即可隨時使用。
+    <main class="max-w-5xl mx-auto px-4 py-12">
+        <header class="text-center mb-16">
+            <h1 data-i18n="heroTitle" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-gradient">
+                Digital Toolbox</h1>
+            <p data-i18n="heroDesc" class="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
+                AI-Assisted Development...
             </p>
-        </section>
+        </header>
 
-        <!-- 核心工具區塊 -->
-        <div class="max-w-2xl mx-auto">
-            <!-- 路線編輯器 -->
-            <a href="HoldFocus.html"
-                class="feature-card group bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-blue-200 block">
-                <div class="flex justify-between items-start mb-6">
+        <section class="mb-20">
+            <div class="flex items-center gap-3 mb-8">
+                <h2 data-i18n="coreTitle" class="text-2xl font-bold">Tools</h2>
+                <span data-i18n="badgeLive" class="bg-blue-100 text-blue-600 status-badge">LIVE</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <a href="Hangboard.html" class="feature-card p-8 group">
                     <div
-                        class="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                            </path>
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <span id="status-available" class="status-badge bg-green-100 text-green-700">立即使用</span>
-                </div>
-                <h3 id="feature-title" class="text-2xl font-bold mb-4">路線編輯器 (HoldFocus Canvas)</h3>
-                <p id="feature-desc" class="text-gray-600 leading-relaxed mb-6">
-                    快速標記並分享自訂路線。具備智慧岩點辨識功能，能自動偵測邊緣並突出顯示，讓你輕鬆製作高品質的路線示意圖。
-                </p>
-                <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
-                    <h4 id="future-title" class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-widest">未來發展
-                    </h4>
-                    <ul class="text-sm text-gray-500 space-y-1">
-                        <li id="future-item-1">• 個人雲端相簿：跨裝置儲存你的所有路線。</li>
-                        <li id="future-item-2">• 一鍵社群分享：快速生成連結分享給岩友。</li>
+                    <h3 data-i18n="hbTitle" class="text-xl font-bold mb-3">Hangboard Timer</h3>
+                    <p data-i18n="hbPain" class="text-slate-500 text-sm mb-4 leading-relaxed">Pain point description...
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-6">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-blue-400 rounded-full"></div><span data-i18n="hbF1">Feature 1</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-blue-400 rounded-full"></div><span data-i18n="hbF2">Feature 2</span>
+                        </li>
                     </ul>
-                </div>
-                <div class="flex items-center text-blue-600 font-bold">
-                    <span id="cta-text">開啟編輯器</span>
-                    <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                    </svg>
-                </div>
-            </a>
-        </div>
+                    <div data-i18n="hbFuture" class="text-xs font-semibold text-blue-600">Future plan...</div>
+                </a>
 
-        <!-- 預計開發功能 -->
-        <section class="mt-24">
-            <div class="flex items-center gap-4 mb-8">
-                <h2 id="queue-title" class="text-2xl font-bold">準備中 (Features in Queue)</h2>
-                <div class="h-px bg-gray-200 flex-1"></div>
+                <a href="HoldFocus.html" class="feature-card p-8 group">
+                    <div
+                        class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="hfTitle" class="text-xl font-bold mb-3">Route Editor</h3>
+                    <p data-i18n="hfPain" class="text-slate-500 text-sm mb-4 leading-relaxed">Pain point description...
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-6">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-indigo-400 rounded-full"></div><span data-i18n="hfF1">Feature
+                                1</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1 h-1 bg-indigo-400 rounded-full"></div><span data-i18n="hfF2">Feature
+                                2</span>
+                        </li>
+                    </ul>
+                    <div data-i18n="hfFuture" class="text-xs font-semibold text-indigo-600">Future plan...</div>
+                </a>
             </div>
+        </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 id="q-item-1-title" class="font-bold mb-2 flex items-center gap-2 text-blue-600">
-                        指力訓練計時器
-                    </h4>
-                    <p id="q-item-1-desc" class="text-sm text-gray-500 leading-relaxed">
-                        針對指力板與抱石訓練設計，支援藍芽吊秤連動，自動紀錄指力峰值。
-                    </p>
+        <section class="mb-20">
+            <h2 data-i18n="changelogTitle" class="text-2xl font-bold mb-8">Updates</h2>
+            <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                    <span class="text-sm font-bold text-slate-900">2026.02.25</span>
+                    <span data-i18n="logHbV1"
+                        class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-md font-bold text-center">Hangboard
+                        v1</span>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 id="q-item-2-title" class="font-bold mb-2 flex items-center gap-2 text-green-600">
-                        動作追蹤與姿勢分析
-                    </h4>
-                    <p id="q-item-2-desc" class="text-sm text-gray-500 leading-relaxed">
-                        透過影片分析你的攀爬軌跡，即時檢測重心偏移與動作準確度。
-                    </p>
+                <div data-i18n="logHbDesc" class="p-6 text-sm text-slate-500 leading-relaxed">Release notes...</div>
+
+                <div class="p-6 border-b border-t border-slate-100 flex items-center justify-between bg-slate-50/50">
+                    <span class="text-sm font-bold text-slate-900">2026.02.13</span>
+                    <span data-i18n="logHfV1"
+                        class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-md font-bold text-center">HoldFocus
+                        v1</span>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 id="q-item-3-title" class="font-bold mb-2 flex items-center gap-2 text-purple-600">
-                        岩鞋規格對比
-                    </h4>
-                    <p id="q-item-3-desc" class="text-sm text-gray-500 leading-relaxed">
-                        完整收錄各品牌岩鞋數據，根據你的腳型與攀爬風格提供選購建議。
-                    </p>
+                <div data-i18n="logHfDesc" class="p-6 text-sm text-slate-500 leading-relaxed">Release notes...</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-i18n="queueTitle" class="text-2xl font-bold mb-8 text-slate-400">Queue</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-6 bg-slate-100 rounded-2xl border border-dashed border-slate-300">
+                    <h4 data-i18n="q1Title" class="font-bold text-slate-500 mb-2">Title</h4>
+                    <p data-i18n="q1Desc" class="text-xs text-slate-400">Desc...</p>
+                </div>
+                <div class="p-6 bg-slate-100 rounded-2xl border border-dashed border-slate-300">
+                    <h4 data-i18n="q2Title" class="font-bold text-slate-500 mb-2">Title</h4>
+                    <p data-i18n="q2Desc" class="text-xs text-slate-400">Desc...</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 py-16 mt-24">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-                <div class="text-left">
-                    <h3 id="footer-contact-title" class="text-lg font-bold mb-4">聯絡我們</h3>
-                    <p id="footer-contact-desc" class="text-gray-500 text-sm mb-6">對工具箱有任何建議或回報問題，歡迎透過以下方式與我們聯繫。</p>
-                    <div class="space-y-3">
-                        <a href="mailto:chanwunkong@gmail.com"
-                            class="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            <span class="text-sm">chanwunkong@gmail.com</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="flex items-end md:justify-end">
-                    <div class="text-left md:text-right">
-                        <div
-                            class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold mb-4 md:ml-auto">
-                            C</div>
-                        <p id="footer-text" class="text-gray-400 text-sm">Climbing Toolbox</p>
-                        <p class="text-gray-300 text-xs mt-2">© 2024 Climbing Toolbox. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
+    <footer class="bg-white border-t border-slate-200 py-12 mt-20 text-center">
+        <div class="mb-6 flex flex-col items-center gap-2">
+            <span data-i18n="contactUs"
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Contact</span>
+            <a href="mailto:chanwunkong@gmail.com"
+                class="text-slate-600 hover:text-blue-600 font-medium transition-colors border-b border-slate-200 hover:border-blue-600 pb-0.5">
+                chanwunkong@gmail.com
+            </a>
         </div>
+        <p data-i18n="footerCopy" class="text-sm text-slate-400">Design for climbers.</p>
     </footer>
 
     <script>
-        const i18n = {
-            zh: {
-                heroTitle: "專為攀岩者打造的工具箱",
-                heroDesc: "簡化你的路線紀錄、訓練管理與數據分析流程。無需安裝，透過瀏覽器即可隨時使用。",
-                statusAvailable: "立即使用",
-                featureTitle: "路線編輯器 (HoldFocus Canvas)",
-                featureDesc: "快速標記並分享自訂路線。具備智慧岩點辨識功能，能自動偵測邊緣並突出顯示，讓你輕鬆製作高品質的路線示意圖。",
-                futureTitle: "未來發展",
-                futureItem1: "• 個人雲端相簿：跨裝置儲存你的所有路線。",
-                futureItem2: "• 一鍵社群分享：快速生成連結分享給岩友。",
-                ctaText: "開啟編輯器",
-                queueTitle: "準備中 (Features in Queue)",
-                qItem1Title: "指力訓練計時器",
-                qItem1Desc: "針對指力板與抱石訓練設計，支援藍芽吊秤連動，自動紀錄指力峰值。",
-                qItem2Title: "動作追蹤與姿勢分析",
-                qItem2Desc: "透過影片分析你的攀爬軌跡，即時檢測重心偏移與動作準確度。",
-                qItem3Title: "岩鞋規格對比",
-                qItem3Desc: "完整收錄各品牌岩鞋數據，根據你的腳型與攀爬風格提供選購建議。",
-                footerContactTitle: "聯絡我們",
-                footerContactDesc: "對工具箱有任何建議或回報問題，歡迎透過以下方式與我們聯繫。",
-                footerText: "Climbing Toolbox",
-                toggle: "English"
-            },
-            en: {
-                heroTitle: "The Toolbox for Climbers",
-                heroDesc: "Streamline your route logging, training management, and data analysis. No installation needed—access it anywhere via your browser.",
-                statusAvailable: "Launch Now",
-                featureTitle: "Route Editor (HoldFocus Canvas)",
-                featureDesc: "Quickly mark and share custom routes. Built with smart hold recognition to automatically detect edges and highlight features for high-quality route maps.",
-                futureTitle: "Coming Up",
-                futureItem1: "• Cloud Album: Save and access your routes across all devices.",
-                futureItem2: "• Easy Share: Instantly generate links to share with the community.",
-                ctaText: "Open Editor",
-                queueTitle: "Features in Queue",
-                qItem1Title: "Hangboard Timer",
-                qItem1Desc: "Designed for hangboard and bouldering sessions, with Bluetooth scale integration for auto-logging peak force.",
-                qItem2Title: "Motion & Pose Analysis",
-                qItem2Desc: "Analyze your climbing trajectory via video to track center of gravity and movement precision.",
-                qItem3Title: "Climbing Shoe Database",
-                qItem3Desc: "A comprehensive database to compare shoe specs and get recommendations based on your foot shape.",
-                footerContactTitle: "Contact Us",
-                footerContactDesc: "Have suggestions or need to report an issue? Feel free to reach out to us.",
-                footerText: "Climbing Toolbox",
-                toggle: "中文"
+        function updateUI() {
+            if (typeof i18n !== 'undefined') {
+                i18n.updatePage();
             }
-        };
-
-        let currentLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
-
-        function updateLanguage(lang) {
-            const data = i18n[lang];
-            document.getElementById('hero-title').textContent = data.heroTitle;
-            document.getElementById('hero-desc').textContent = data.heroDesc;
-            document.getElementById('status-available').textContent = data.statusAvailable;
-            document.getElementById('feature-title').textContent = data.featureTitle;
-            document.getElementById('feature-desc').textContent = data.featureDesc;
-            document.getElementById('future-title').textContent = data.futureTitle;
-            document.getElementById('future-item-1').textContent = data.futureItem1;
-            document.getElementById('future-item-2').textContent = data.futureItem2;
-            document.getElementById('cta-text').textContent = data.ctaText;
-            document.getElementById('queue-title').textContent = data.queueTitle;
-            document.getElementById('q-item-1-title').textContent = data.qItem1Title;
-            document.getElementById('q-item-1-desc').textContent = data.qItem1Desc;
-            document.getElementById('q-item-2-title').textContent = data.qItem2Title;
-            document.getElementById('q-item-2-desc').textContent = data.qItem2Desc;
-            document.getElementById('q-item-3-title').textContent = data.qItem3Title;
-            document.getElementById('q-item-3-desc').textContent = data.qItem3Desc;
-            document.getElementById('footer-contact-title').textContent = data.footerContactTitle;
-            document.getElementById('footer-contact-desc').textContent = data.footerContactDesc;
-            document.getElementById('footer-text').textContent = data.footerText;
-            document.getElementById('lang-toggle').textContent = data.toggle;
-            document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
         }
 
-        document.getElementById('lang-toggle').addEventListener('click', () => {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateLanguage(currentLang);
+        auth.onAuthStateChanged(user => {
+            const loginBtn = document.getElementById('login-btn');
+            const userInfo = document.getElementById('user-info');
+            const avatar = document.getElementById('user-avatar');
+            if (user) {
+                loginBtn.classList.add('hidden');
+                userInfo.classList.remove('hidden');
+                avatar.src = user.photoURL || 'https://via.placeholder.com/32';
+            } else {
+                loginBtn.classList.remove('hidden');
+                userInfo.classList.add('hidden');
+            }
+            updateUI();
         });
 
-        // Initialize with detected or default language
-        updateLanguage(currentLang);
+        // 初始化載入
+        updateUI();
     </script>
 </body>
 

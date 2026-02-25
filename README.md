@@ -1,55 +1,71 @@
-# Project Core: Climbing Toolbox
-
+# Climbing Toolbox
 A web-based auxiliary toolbox for climbers, developed with AI assistance and deployed via GitHub Pages. The project aims to evolve into a comprehensive training management platform.
 
----
+## 1. Tools (Live)
 
-## 1. Initial Feature: Route Editor (HoldFocus Canvas)
-The primary module designed to streamline route creation and sharing for both climbers and gym setters.
+### Hangboard Timer
+* **Description:** Addresses the inconvenience of operating screens with chalked hands and the difficulty of accurately timing complex, nested training protocols.
+* **Features:**
+    * Unrestricted structured timer with offline and voice-control support.
+    * Fully automated training log and calendar statistics system.
+* **Future Plan:** Hardware integration with Bluetooth crane scales for automated training volume tracking.
 
+### Route Editor (HoldFocus)
+* **Description:** Addresses the difficulty of preserving route details amidst frequent gym resets and reduces communication costs when explaining movements.
+* **Features:**
+    * Manual hold marking for rapid route diagram generation.
+    * Image export and instant record sharing.
+* **Future Plan:** Implementation of smart hold recognition and personal cloud albums.
 ![HoldFocus Demo](./HoldFocus_demo.png)
 
-* **Smart Mask Selection**: Combines **Lasso Paths** and **Color Difference Algorithms** to precisely highlight climbing holds on image overlays.
+## 2. Updates
+* **2026.02.25:** Hangboard v1 Released.
+* **2026.02.13:** HoldFocus v1 Released.
 
-## 2. Future Development: Cloud
-* **Cloud Socialization**: **Firebase** integration for user accounts, enabling cloud-based route albums and one-click sharing.
+## 3. Queue
+* **Image Analysis Evolution:** Transitioning from static marking to video analysis for trajectory tracking and center-of-gravity evaluation.
+* **Gear Database:** A structured database for climbing shoe specifications and performance comparisons.
 
-## 3. Features in Queue (Backlog)
+## 4. System Architecture
+* **Frontend UI:** Vanilla JavaScript, Tailwind CSS.
+* **Backend & Cloud:** Firebase App, Firebase Auth (Google Login integration), and Firebase Firestore (v10.12.0).
 
-### Training Tools & AI Analysis
-* **Hangboard Training Timer**: Specialized timer for hangboard and bouldering sessions.
-    * **Hardware Integration**: Supports **WeiHeng C06 Bluetooth Crane Scale** for automated finger strength data logging.
-* **Image Analysis Evolution**:
-    * **Motion Tracking**: Transitioning from static marking to video analysis to automatically track climbing trajectories.
-    * **Pose Estimation**: Utilizing AI to analyze center-of-gravity shifts and movement precision for technical feedback.
-
-### Gear & Database
-* **Gear Database**: A comprehensive database for climbing shoe specifications and performance comparisons.
-
-# 專案核心：攀岩工具箱
-
-這是一個為攀岩者設計的網頁輔助工具箱，透過人工智慧輔助開發並部署於 GitHub 頁面。目標是從基礎工具演進為全方位的攀岩訓練管理平台。
+## 5. Contact
+* **Email:** chanwunkong@gmail.com
 
 ---
 
-## 一、 現有核心功能：路線編輯器
+# 攀岩工具箱 (Climbing Toolbox)
+這是一個透過人工智慧輔助開發、部署於 GitHub Pages 的網頁端攀岩輔助工具。專案目標是演進為全方位的攀岩訓練管理平台。
 
-作為專案的首個模組，旨在簡化岩館與攀岩者紀錄、分享路線的流程。
+## 一、 工具 (已上線)
 
-* **智能選區**：結合套索路徑與色差演算法，精準標記並突出顯示岩牆上的岩點。
+### 指力訓練計時 (Hangboard v1)
+* **描述：** 解決訓練時雙手滿是粉末不便觸碰螢幕，以及複雜巢狀訓練難以精準計時的痛點。
+* **功能：**
+    * 無限制結構化計時器，支持離線或聲控。
+    * 全自動訓練日誌與日曆統計系統。
+* **未來規劃：** 支援藍芽吊秤連動，讓訓練量自動量化紀錄。
 
-## 二、 未來發展：雲端化
+### 路線編輯器 (HoldFocus v1)
+* **描述：** 解決岩館路線更新頻繁難以留存細節，以及向他人解釋動作時溝通成本高的問題。
+* **功能：**
+    * 手動標記岩點，快速產出路線示意圖。
+    * 支援圖片導出與即時紀錄分享。
+* **未來規劃：** 考慮加入智慧岩點辨識與個人雲端相簿。
 
-* **社交雲端化**：整合雲端用戶系統，支援個人雲端相簿與一鍵分享功能。
 
-## 三、 待開發清單
+## 二、 更新日誌 (Updates)
+* **2026.02.25：** Hangboard v1 發布。
+* **2026.02.13：** HoldFocus v1 發布。
 
-### 訓練輔助與人工智慧分析
-* **指力板訓練計時器**：專為指力板與抱石課表設計。
-    * **硬體整合**：支援藍牙吊秤接入，自動記錄指力測試數據。
-* **影像分析演進**：
-    * **動作追蹤**：從靜態標記轉向影片分析，自動捕捉攀爬軌跡。
-    * **姿勢評估**：利用人工智慧分析重心偏移與動作精準度，提供技術性回饋。
+## 三、 待開發清單 (Queue)
+* **影像分析演進：** 從靜態影像轉向動態影片分析，自動捕捉攀爬軌跡並利用 AI 評估重心偏移。
+* **裝備資料庫：** 建置結構化的岩鞋規格資料庫，提供性能對比與資料檢索。
 
-### 裝備庫
-* **岩鞋資料庫**：收錄各品牌岩鞋規格，提供性能對比與選購參考。
+## 四、 系統架構
+* **前端介面：** 原生 JavaScript、Tailwind CSS。
+* **後端與雲端：** Firebase 核心、Firebase Auth (Google 登入) 與 Firebase Firestore (版本 10.12.0)。
+
+## 五、 聯絡資訊
+* **Email:** chanwunkong@gmail.com
